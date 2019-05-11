@@ -7,13 +7,12 @@ export default class Input extends Component{
 
     const{
       label,
-      name,
+      value,
       type,
       placeholder,
       getData,
       disabled
-      }
-      = this.props;
+      } = this.props;
     
      return(
       <div className="row">
@@ -21,11 +20,13 @@ export default class Input extends Component{
           <label>{label}</label>
         </div>
         <div className="col-75">
-          <input type={type}
-            defaultValue={name}
+          <input 
+            type={type}
             className="inputData"
             placeholder={placeholder}
             required
+            value={value}
+
             onChange={getData}
             disabled={disabled}
           /><br/>

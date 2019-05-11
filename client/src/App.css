@@ -27,7 +27,7 @@ label{
   display: inline-block;
 }
 
-.rowButtons {
+.footerButtons {
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;

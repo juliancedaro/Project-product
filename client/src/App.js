@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Input from './components/inputs';
+import Button from './components/buttonsFooter';
 
 class App extends Component{
     state = {
@@ -108,6 +109,7 @@ class App extends Component{
                 this.setState({ 
                   products: products.filter((item) => (item.id.toString() !== jsonResponse.productId))
                 }) 
+                this.cleanInputs();
              })
           }else{
             this.cleanInputs();
@@ -164,7 +166,10 @@ class App extends Component{
 
   render(){
     const { products } = this.state
-    console.log('products', products)
+    // console.log('products', products)
+    // console.log(this.state.name);
+    // console.log(this.state.price);
+    // console.log(this.state.quantity);
     return (
       <div className="container">
         <div>
@@ -211,6 +216,7 @@ class App extends Component{
             type={'text'}
             placeholder={'Product Name...'}
             getData={this.handleChangeName}
+            disabled={false}
           />
           <Input
             label={'Product Price'}
@@ -218,6 +224,7 @@ class App extends Component{
             type={'number'}
             placeholder={'Product Price...'}
             getData={this.handleChangePrice}
+            disabled={false}
           />
           <Input
             label={'Quantity'}
@@ -225,14 +232,40 @@ class App extends Component{
             type={'number'}
             placeholder={'Quantity...'}
             getData={this.handleChangeQuantity}
+            disabled={false} 
           />
           
-          <div className="rowButtons"><br/>
-            <input type="button" className="button" value="Add" onClick={this.addProduct}/>
-            <input type="button" className="button" value="Get" onClick={this.getProducts}/>
-            <input type="button" className="button" value="Update" onClick={this.updateProduct}/>
-            <input type="button" className="button" value="Delete" onClick={this.deleteProduct}/>
-            <input type="button" className="button" value="clean" onClick={this.cleanInputs}/>
+          <div className="footerButtons"><br/>
+            <Button
+              type={"button"}
+              className={"button"}
+              value={"Get"}
+              onClick={this.getProducts}
+            />
+            <Button
+              type={"button"}
+              className={"button"}
+              value={"Add"}
+              onClick={this.addProduct}
+            />
+            <Button
+              type={"button"}
+              className={"button"}
+              value={"Update"}
+              onClick={this.updateProduct}
+            />
+            <Button
+              type={"button"}
+              className={"button"}
+              value={"Delete"}
+              onClick={this.deleteProduct}
+            />
+            <Button
+              type={"button"}
+              className={"button"}
+              value={"Clean"}
+              onClick={this.cleanInputs}
+            />
           </div>
         </form>
       </div>
