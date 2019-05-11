@@ -18,9 +18,9 @@ td,th,table{
   border: 1px solid black;
 }
 
-:required{
+/* :required{
   background: red;
-}
+} */
 
 label{
   margin: 5px 0 5px 0;

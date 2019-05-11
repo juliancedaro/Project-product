@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Input from './components/inputs';
 
 class App extends Component{
     state = {
@@ -197,59 +198,35 @@ class App extends Component{
           </table>
         </div>
         <form className="productForm">
-           <div className="row">
-              <div className="col-25"><br/>
-                <label>Product ID</label>
-              </div>
-              <div className="col-75">
-                <input 
-                  type="text"
-                  className="inputData"
-                  value={this.state.id}
-                  placeholder="Insert ID..." 
-                  disabled
-                /><br/>
-              </div>
-           </div>
-          <div className="row">
-            <div className="col-25">
-              <label>Product Name</label>
-            </div>
-            <div className="col-75">
-              <input type="text"
-                  value={this.state.name}
-                  className="inputData"
-                  placeholder="Insert Product..."
-                  onChange={this.handleChangeName}
-               /><br/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-25">
-              <label>Price</label>
-            </div>
-            <div className="col-75">
-               <input type="number"
-               className="inputData"
-               value={this.state.price}
-               placeholder="Insert Price..."
-               onChange={this.handleChangePrice}
-               /><br/>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-25">
-              <label>Quantity</label>
-            </div>
-            <div className="col-75">
-              <input type="number"
-               className="inputData"
-               value={this.state.quantity}
-               placeholder="Insert Quantity..."
-               onChange={this.handleChangeQuantity}
-               /><br/>
-            </div>
-          </div> 
+          <Input 
+            label={'Product ID'} 
+            value={this.state.id}
+            type={'text'} 
+            placeholder={'Product ID...'}
+            disabled={true}
+          />
+          <Input
+            label={'Product Name'}
+            value={this.state.name}
+            type={'text'}
+            placeholder={'Product Name...'}
+            getData={this.handleChangeName}
+          />
+          <Input
+            label={'Product Price'}
+            value={this.state.price}
+            type={'number'}
+            placeholder={'Product Price...'}
+            getData={this.handleChangePrice}
+          />
+          <Input
+            label={'Quantity'}
+            value={this.state.quantity}
+            type={'number'}
+            placeholder={'Quantity...'}
+            getData={this.handleChangeQuantity}
+          />
+          
           <div className="rowButtons"><br/>
             <input type="button" className="button" value="Add" onClick={this.addProduct}/>
             <input type="button" className="button" value="Get" onClick={this.getProducts}/>
