@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Input from './components/inputs';
 import Button from './components/buttonsFooter';
+import ProductsTable from './components/table';
 
 class App extends Component{
     state = {
@@ -109,8 +110,8 @@ class App extends Component{
                 this.setState({ 
                   products: products.filter((item) => (item.id.toString() !== jsonResponse.productId))
                 }) 
-                this.cleanInputs();
              })
+             this.cleanInputs();
           }else{
             this.cleanInputs();
          }
@@ -141,7 +142,7 @@ class App extends Component{
       })  
     }
 
-    getData(id) {
+    getData = (id) => {
       const { products } = this.state;
       const product = products.find(product => 
         product.id === id
@@ -166,42 +167,18 @@ class App extends Component{
 
   render(){
     const { products } = this.state
-    // console.log('products', products)
-    // console.log(this.state.name);
-    // console.log(this.state.price);
-    // console.log(this.state.quantity);
+    console.log('id',this.state.id)
     return (
       <div className="container">
         <div>
-          <table className="productTable">
-            <tbody>
-              <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Options</th>
-              </tr>
-            </tbody>
-            {
-              products.map(item => (
-                <tbody key={item.id}>
-                  <tr>
-                    <td>{item.name}</td>
-                    <td>{item.price}</td>
-                    <td>{item.quantity}</td>
-                    <td className="tdOptions">
-                      <input type="button" className='buttonTable edit' value="Edit" 
-                      onClick={() => this.getData(item.id)} /> 
-                      <input type="button" className='buttonTable delete'
-                       value="delete" onClick={() => this.getData(item.id)}/>
-                     </td>
-                  </tr>
-                 </tbody>
-                )
-              )
-            }
-          </table>
-        </div>
+          <ProductsTable
+            products={products}
+            className="table"
+            editValue="Edit"
+            deleteValue="Delete"
+            getDataFunction={this.getData} 
+          />
+         </div>
         <form className="productForm">
           <Input 
             label={'Product ID'} 
