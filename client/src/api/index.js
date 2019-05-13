@@ -8,7 +8,7 @@ export const getProducts = () => {
 )}
 
 export const addProduct = (name,price,quantity) => {
-  return fetch('http://localhost:9000/products/', {
+  return fetch('http://localhost:9000/products/add', {
       method: 'POST',
       headers:{
         'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ export const addProduct = (name,price,quantity) => {
 }
 
 export const updateProduct = (id, name, price, quantity) => {
-  return fetch(`http://localhost:9000/products/${id}`, {
+  return fetch(`http://localhost:9000/products/update/${id}`, {
     method: 'PUT',
     headers:{
       'Content-Type': 'application/json'
@@ -35,8 +35,8 @@ export const updateProduct = (id, name, price, quantity) => {
   })
 }
 
-export const deleteProduct = (id, name, price, quantity) => {
-  return fetch(`http://localhost:9000/products/${id}`, {
+export const deleteProduct = (id) => {
+  return fetch(`http://localhost:9000/products/delete/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'Application/json'

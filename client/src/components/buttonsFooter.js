@@ -13,10 +13,12 @@ export default class Button extends Component {
     } = this.props;
 
     return(
-           <input type={type}
-             className={className}
-             value={value} 
-             onClick={onClick}/>
+      <input 
+        type={type}
+        className={className}
+        value={value} 
+        onClick={onClick}
+      />
     )
   }
 }
