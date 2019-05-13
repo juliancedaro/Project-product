@@ -13,10 +13,11 @@ router.route('/')
 .get(getProducts)
 .post(addProducts);
 
+// router.route('/add').post(addProducts);
+
 router.route('/:id')
 .put(updateProducts)
 .delete(deleteProducts)
 .patch(patchProducts);
-
 
 module.exports = router; 

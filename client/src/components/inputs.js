@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../App.js';
+import '../App.css';
 
 export default class Input extends Component{
    

@@ -3,6 +3,7 @@ import './App.css';
 import Input from './components/inputs';
 import Button from './components/buttonsFooter';
 import ProductsTable from './components/table';
+import { getProducts, addProduct, updateProduct, deleteProduct }  from './api/api';
 
 class App extends Component{
     state = {
@@ -12,60 +13,37 @@ class App extends Component{
       quantity: '',
       products: []
     };
-
-   getProducts = () => {
-
-      fetch('http://localhost:9000/products')
-        .then(response => response.json())
-        .then(jsonResponse => {
-          this.setState({ products: JSON.parse(jsonResponse.products) })
-        })
-        .catch(error => {
-           console.log(error);
-        });
-
-    }
-
-    addProduct = () => {
-      fetch('http://localhost:9000/products', {
-        method: 'POST',
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "name": this.state.name,
-          "price": this.state.price,
-          "quantity": this.state.quantity
-          })
-        })
-        .then(response => response.json())
-        .then(jsonResponse => {
-          // console.log(jsonResponse);
-          this.setState({ products: [
-            ...this.state.products,
-            JSON.parse(jsonResponse.product) 
-          ]})
-          this.cleanInputs();
-        })
-        .catch(error => {
-           console.log(error);
-        });
-    }
-
-    updateProduct = () => {
-      if(this.state.id){
-      const id = this.state.id;
-      fetch(`http://localhost:9000/products/${id}`, {
-        method: 'PUT',
-        headers:{
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "name": this.state.name,
-          "price": this.state.price,
-          "quantity": this.state.quantity
-        })
+  getProducts = () => {
+    getProducts()
+    .then(response => response.json())
+    .then(jsonResponse => {
+      this.setState({ products: JSON.parse(jsonResponse.products) })
+    })
+    .catch(error => {
+        console.log(error);
+    });
+  } 
+  addProducts = () => {
+    const {name, price, quantity} = this.state;
+    addProduct(name, price, quantity)
+    .then(response => response.json())
+      .then(jsonResponse => {
+        // console.log(jsonResponse);
+        this.setState({ products: [
+          ...this.state.products,
+          JSON.parse(jsonResponse.product) 
+        ]})
+        this.cleanInputs();
       })
+      .catch(error => {
+        console.log(error);
+      }
+    );
+  }
+  updateProduct = () => {
+    const {id, name, price, quantity} = this.state;
+    if(id){
+      updateProduct(id, name, price, quantity)
       .then(response => response.json())
         .then(jsonResponse => {
           this.setState({ 
@@ -81,44 +59,36 @@ class App extends Component{
         })
         this.cleanInputs();
       })
-       .catch(error => {
-          console.log(error);
-        })
-          // const index = products.findIndex(product => product.id === jsonResponse.response.id)
-          // console.log('index', index)
-          // products[index] = jsonResponse.response
-        }else{
-          alert('Impossible to update, ID is needed');
-        }
+      .catch(error => {
+        console.log(error);
+      })  
+    }else{
+      alert('Impossible to update, ID is needed');
     }
+  }
 
-    deleteProduct = () => {
-      if(this.state.id){
-        const id = this.state.id;
-        const r = window.confirm(`Do you want to delete this product?`);
-        if(r === true){
-        fetch(`http://localhost:9000/products/${id}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'Application/json'
-            }
-          })
+  deleteProduct = () => {
+    const { id, name, price, quantity} = this.state;
+    if(id){
+      const r = window.confirm(`Do you want to delete this product?`);
+      if(r === true){
+        deleteProduct(id, name, price, quantity)
           .then(response => response.json())
             .then(jsonResponse => {
               console.log(jsonResponse);
-                const { products } = this.state;
-                this.setState({ 
-                  products: products.filter((item) => (item.id.toString() !== jsonResponse.productId))
-                }) 
-             })
-             this.cleanInputs();
-          }else{
+              const { products } = this.state;
+              this.setState({ 
+                products: products.filter((item) => (item.id.toString() !== jsonResponse.productId))
+              }) 
+            })
             this.cleanInputs();
-         }
-       }else{
-        alert('Impossible to delete, ID is needed');
-       }
-     } 
+      }else{
+        this.cleanInputs();
+      }
+    }else{
+      alert('Impossible to delete, ID is needed');
+    }
+  } 
   
     componentDidMount(){
       this.getProducts();
@@ -143,6 +113,7 @@ class App extends Component{
     }
 
     getData = (id) => {
+      console.log(id);
       const { products } = this.state;
       const product = products.find(product => 
         product.id === id
@@ -167,7 +138,6 @@ class App extends Component{
 
   render(){
     const { products } = this.state
-    console.log('id',this.state.id)
     return (
       <div className="container">
         <div>
@@ -223,7 +193,7 @@ class App extends Component{
               type={"button"}
               className={"button"}
               value={"Add"}
-              onClick={this.addProduct}
+              onClick={this.addProducts}
             />
             <Button
               type={"button"}

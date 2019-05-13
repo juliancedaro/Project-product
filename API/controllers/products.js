@@ -9,7 +9,7 @@ module.exports = {
   getProducts: (req, resp) => {
     getProductsFromDB()
       .then(products => {
-        console.log('PRODUCTS IN SERVER', products);
+        // console.log('PRODUCTS IN SERVER', products);
         return resp
           .status(200)
           .json({
@@ -27,8 +27,8 @@ module.exports = {
       });
   },
   addProducts: (req,resp) => {
-    console.log(req.body.name, req.body.price, req.body.quantity)
-    addProductstoDB(req.body.name, req.body.price, req.body.quantity)
+    const { name, price, quantity } = req.body;
+    addProductstoDB(name, price, quantity)
     .then(product => {
       console.log('NEW PRODUCT', product);
       return resp

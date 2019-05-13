@@ -22,7 +22,8 @@ const Products = sequelize.define('Products', {
   name: Sequelize.STRING,
   price: Sequelize.DECIMAL,
   quantity: Sequelize.SMALLINT
-}, {
+}, 
+{
   timestamps: false,
 });
 
@@ -44,48 +45,28 @@ const addProductstoDB = (name, price, quantity) => {
       return JSON.stringify(product);
     }
     throw "Impossible to add a new product"
-})
+  })
 };
 
 const updateProductsfromDB = (id, name, price, quantity) => 
   Products.findByPk(Number(id))
-    .then(response => {
-      if(response) {
-        return response.update({
-          name,
-          price: parseFloat(price),
-          quantity: parseInt(quantity)
-        })
-      }
-      throw "Impossible to patch the product"
-    });
-
-// const deleteProductDB = (idDELETE) => Products.findByPk(Number(idDELETE))
-//   .then((response, secondParameter) => {
-//     if(response) {
-//       return Products.destroy({
-//         where: {
-//           id: Number(idDELETE)
-//         }
-//       })
-//     }
-//     throw "Impossible to delete the product"
-// });
+  .then(response => {
+    if(response) {
+      return response.update({
+        name,
+        price: parseFloat(price),
+        quantity: parseInt(quantity)
+      })
+    }
+  throw "Impossible to patch the product"
+});
 
 const deleteProductDB = (idDELETE) => Products.destroy({
-        where: {
-          id: Number(idDELETE)
-        }
-      })      
-// const patchProductDB = (id, newData) => Products.update({
-//   where: {
-//     id: Number(id),
-//   }
-// }).then(product => {
-//   return JSON.stringify(product);
-// }).catch(err => {
-//   return err;
-// })
+  where: {
+    id: Number(idDELETE)
+  }
+})      
+
 
 const patchProductDB = (idPATCH, newData) => Products.findByPk(Number(idPATCH))
 .then(response => {
