@@ -57,11 +57,11 @@ label{
   width: 50%;
 }
 .edit{
-  background-color: green;
+  background-color: #4CAF50;
 }
 
 .delete{
-  background-color: red;
+  background-color: #FF5632;
 }
 
 .col-25{

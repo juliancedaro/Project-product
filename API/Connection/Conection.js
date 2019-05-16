@@ -30,7 +30,7 @@ const Products = sequelize.define('Products', {
 const getProductsFromDB = () => Products.findAll({ attributes: ['id','name','price', 'quantity']})
   .then(products => {
     if(products){
-      return JSON.stringify(products);
+      return products;
       }
     throw "Impossible to get data"
     });
@@ -42,7 +42,7 @@ const addProductstoDB = (name, price, quantity) => {
     quantity: parseInt(quantity)
   }).then(product => {
     if(product){
-      return JSON.stringify(product);
+      return product;
     }
     throw "Impossible to add a new product"
   })

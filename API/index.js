@@ -3,29 +3,19 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
 const productRoutes = require('./routes/products');
+const Cors = require('cors');
 
-
-//conection
-// const Sequelize  = require('sequelize');
-
-// const sequelize = new Sequelize('julian','julian','',{
-//   host:'localhost',
-//   dialect:'postgres'
+// app.use((request, response, rest) => {
+//     response.header("Access-Control-Allow-Origin", "*");
+//     response.header("Access-Control-Allow-Origin", "Origin, Content-Type, Accept");
+//     next();
 // });
-
-// sequelize.authenticate()
-// .then(()=>{
-//   console.log('estas conectado');
-// })
-// .catch(err => {
-//   console.log(err);
-// })
-
 
 //settings
 app.set('json spaces', 4);
 
 //middleware
+app.use(Cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

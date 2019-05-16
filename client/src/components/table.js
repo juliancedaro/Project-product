@@ -1,50 +1,27 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { getProducts } from '../api';
+import { getProducts as getProductsAction } from '../redux/Products/actions/getActions';
+import { connect } from 'react-redux';
+import { getData as getDataAction } from '../redux/Products/actions/handleActions';
+import { deleteProduct as deleteProductAction } from '../redux/Products/actions/deleteActions';
 
-export default class ProductsTable extends Component{
+class ProductsTable extends Component{
+
   
   componentDidMount(){
-    this.getProducts();
+    const { getProducts } = this.props;
+    getProducts();
   }
-  
-  getProducts = () => {
-    const { updateState } = this.props;
-    getProducts()
-      .then(response => response.json())
-      .then(jsonResponse => {
-        updateState({ products: JSON.parse(jsonResponse.products) })
-      })
-      .catch(error => {
-          console.log(error);
-      });
-  }
-
-  getData = (id) => {
-    const {state, updateState } = this.props;
-    console.log(id);
-    const { products } = state;
-    const product = products.find(product => 
-      product.id === id
-    );
-    // console.log(product);
-    updateState({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      quantity: product.quantity
-    })
-  }
-  
+    
   render(){
     const{
+      products,
       className,
       editValue,
       deleteValue,
-      state,
+      getData,
+      deleteProduct
     } = this.props;
-
-    const { products } = state;
     return(
       <div>
         <table className="productTable">
@@ -65,9 +42,12 @@ export default class ProductsTable extends Component{
                   <td>{item.quantity}</td>
                   <td className={className}>
                     <input type="button" className='buttonTable edit' value={editValue} 
-                    onClick={() => this.getData(item.id)} /> 
+                    onClick={() => getData(item.id)} 
+                    /> 
                     <input type="button" className='buttonTable delete'
-                    value={deleteValue} onClick={() => this.getData(item.id)}/>
+                    value={deleteValue}
+                    onClick={() => deleteProduct(item.id,item.name)}
+                    />
                   </td>
                 </tr>
               </tbody>
@@ -78,3 +58,18 @@ export default class ProductsTable extends Component{
     )
   }
 }
+
+const mapStateToProps = state => ({
+  products: state.products.products
+})
+
+// const mapDispatchToProps = dispatch => ({
+
+// })
+
+export default connect (
+  mapStateToProps,
+  { getProducts: getProductsAction,
+    getData: getDataAction,
+    deleteProduct: deleteProductAction
+})(ProductsTable);

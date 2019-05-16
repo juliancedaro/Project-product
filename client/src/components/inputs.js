@@ -11,11 +11,12 @@ export default class Input extends Component{
       type,
       placeholder,
       className,
-      getData,
-      disabled
-      } = this.props;
-    
-     return(
+      onChange,
+      disabled,
+      required
+    } = this.props;
+
+    return(
       <div className="row">
         <div className="col-25">
           <label>{label}</label>
@@ -25,13 +26,13 @@ export default class Input extends Component{
             type={type}
             className={className}
             placeholder={placeholder}
-            required
+            required={required}
             value={value}
-            onChange={getData}
+            onChange={onChange}
             disabled={disabled}
           /><br/>
         </div>
       </div>
-     )
+    )
   }
 }

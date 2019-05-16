@@ -9,7 +9,6 @@ module.exports = {
   getProducts: (req, resp) => {
     getProductsFromDB()
       .then(products => {
-        // console.log('PRODUCTS IN SERVER', products);
         return resp
           .status(200)
           .json({
