@@ -4,24 +4,23 @@ import {
   FETCH_POST_REJECTED
 } from './types';
 
-import { addProduct as addProductAPI } from '../../../api/index';
+import { addProduct as addProductAPI } from '../api/index';
 
 import { cleanInputs } from '../actions/handleActions';
 
 export const addProduct = (name, price, quantity) => dispatch => {
   dispatch(postProductPending())
   if(name || price || quantity){
-    const r = window.confirm(`Do you want to update this product: ${name}?`);
-    if(r){
+    const confirmResponse = window.confirm(`Do you want to update this product: ${name}?`);
+    if(confirmResponse){
       addProductAPI(name, price, quantity)
-      .then(response => response.json())
-      .then(jsonResponse => {
-        dispatch(postProductSuccess(jsonResponse))
+      .then(newProduct => {
+        dispatch(postProductSuccess(newProduct))
         dispatch(cleanInputs())
       })
-      .catch (error => {
-        postProductRejected(error)
-      })
+      // .catch (error => {
+      //   postProductRejected(error)
+      // })
     } else{
       dispatch(cleanInputs());
     }

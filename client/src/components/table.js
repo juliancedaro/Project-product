@@ -8,17 +8,14 @@ import { deleteProduct as deleteProductAction } from '../redux/Products/actions/
 class ProductsTable extends Component{
 
   
-  componentDidMount(){
-    const { getProducts } = this.props;
-    getProducts();
-  }
+  // componentDidMount(){
+  //   const { getProducts } = this.props;
+  //   getProducts();
+  // }
     
   render(){
     const{
       products,
-      className,
-      editValue,
-      deleteValue,
       getData,
       deleteProduct
     } = this.props;
@@ -40,13 +37,12 @@ class ProductsTable extends Component{
                   <td>{item.name}</td>
                   <td>{item.price}</td>
                   <td>{item.quantity}</td>
-                  <td className={className}>
-                    <input type="button" className='buttonTable edit' value={editValue} 
-                    onClick={() => getData(item.id)} 
+                  <td className='tableButtonsRow'>
+                    <input type='image' src='https://image.flaticon.com/icons/svg/61/61456.svg' 
+                    className='tableButton' alt='' onClick={() => getData(item.id)} 
                     /> 
-                    <input type="button" className='buttonTable delete'
-                    value={deleteValue}
-                    onClick={() => deleteProduct(item.id,item.name)}
+                    <input type='image' src='https://image.flaticon.com/icons/svg/1214/1214428.svg'
+                    className='tableButton' alt='' onClick={() => deleteProduct(item.id,item.name)}
                     />
                   </td>
                 </tr>

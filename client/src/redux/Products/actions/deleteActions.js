@@ -4,7 +4,7 @@ import {
   FETCH_DELETE_REJECTED
 } from '../actions/types';
 
-import { deleteProduct as deleteProductAPI } from '../../../api/index';
+import { deleteProduct as deleteProductAPI } from '../api/index';
 
 export const deleteProduct = (id, name) => dispatch => {
   dispatch(deleteProductPending());
@@ -12,7 +12,6 @@ export const deleteProduct = (id, name) => dispatch => {
     const r = window.confirm(`Do you want to delete this product ${name}?`);
     if(r){
       deleteProductAPI(id)
-        .then(response =>response.json())
         .then(jsonResponse => dispatch (deleteProductSuccess(jsonResponse.productId)))
         .catch(error => {
           dispatch(deleteProductRejected(error))

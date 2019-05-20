@@ -15,16 +15,11 @@ class App extends Component{
           <div>
             <ProductsTable
               className="table"
-              editValue="Edit"
-              deleteValue="Delete"
-              // state={this.state}
-              // updateState={this.updateState}
             />
           </div>
           <div>
+          <br/>
             <Form
-              // state={this.state}
-              // updateState={this.updateState}
             />
           </div>
         </div>

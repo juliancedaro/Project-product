@@ -41,24 +41,25 @@ const addProductstoDB = (name, price, quantity) => {
     price: parseFloat(price),
     quantity: parseInt(quantity)
   }).then(product => {
-    if(product){
-      return product;
-    }
-    throw "Impossible to add a new product"
+    // if(product){
+      return product
+    // }
+    // throw "Impossible to add a new product"
   })
 };
 
 const updateProductsfromDB = (id, name, price, quantity) => 
   Products.findByPk(Number(id))
-  .then(response => {
-    if(response) {
-      return response.update({
+  .then(product => {
+    // console.log(response)
+    if(product) {
+      return product.update({
         name,
         price: parseFloat(price),
         quantity: parseInt(quantity)
       })
     }
-  throw "Impossible to patch the product"
+  throw "Impossible to update the product"
 });
 
 const deleteProductDB = (idDELETE) => Products.destroy({

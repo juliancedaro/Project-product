@@ -116,7 +116,6 @@ class Form extends Component {
       getProducts,
       addProducts,
       updateProduct,
-      // deleteProduct,
       handleChangeName,
       handleChangePrice,
       handleChangeQuantity,
@@ -163,7 +162,7 @@ class Form extends Component {
             disabled={false} 
           /> 
         </div>
-        <div className="footerButtons"><br/>
+        <footer className="footerButtons"><br/>
           <Button
           type={"button"}
             className={"button"}
@@ -194,7 +193,7 @@ class Form extends Component {
             value={"Clean"}
             onClick={cleanInputs}
           />
-        </div>
+        </footer>
       </form>
     )
   }

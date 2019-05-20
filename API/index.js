@@ -22,11 +22,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 
 //routes
-
 app.use('/products', productRoutes);
 
 //static files
-
 
 
 //Start Server

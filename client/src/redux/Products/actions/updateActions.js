@@ -4,8 +4,25 @@ import {
   FETCH_UPDATE_REJECTED
 } from './types';
 
-import { updateProduct as updateProductAPI } from '../../../api/index';
+import { updateProduct as updateProductAPI } from '../api/index';
 import { cleanInputs } from '../actions/handleActions';
+
+export const updateProduct = (id, name, price, quantity) => dispatch => {
+  dispatch(updateProductsPending())
+  if(id){
+    const r = window.confirm(`Do you want to update this product: ${name}?`);
+    if(r){
+      updateProductAPI(id, name, price, quantity)
+        .then(productResponse => {
+          dispatch(updateProductSuccess(productResponse.response))
+          dispatch(cleanInputs())
+        })
+        .catch(error => dispatch(updateProductRejected(error)))
+    }else{
+      dispatch(cleanInputs());
+    }
+  }else alert('Impossible to update, ID is needed');
+};
 
 export const updateProductSuccess = (product) => ({
   type: FETCH_UPDATE_FULLFILED,
@@ -21,24 +38,6 @@ export const updateProductRejected = (error) => ({
   payload: error
 })
 
-export const updateProduct = (id, name, price, quantity) => dispatch => {
-  dispatch(updateProductsPending())
-  if(id){
-    const r = window.confirm(`Do you want to update this product: ${name}?`);
-    if(r){
-      updateProductAPI(id, name, price, quantity)
-        .then(response => response.json())
-        .then(jsonResponse => {
-          // console.log('jsonResponse', jsonResponse)
-          dispatch(updateProductSuccess(jsonResponse.response))
-          dispatch(cleanInputs())
-        })
-        .catch(error => dispatch(updateProductRejected(error)))
-    }else{
-      dispatch(cleanInputs());
-    }
-  }else alert('Impossible to update, ID is needed');
-};
 
 // updateState({ 
 //   products: state.products.map((item) => {

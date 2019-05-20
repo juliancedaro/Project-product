@@ -4,21 +4,20 @@ import {
   FETCH_GET_REJECTED 
 } from './types';
 
-import { getProducts as getProductsAPI } from '../../../api/index';
+import { getProducts as getProductsAPI } from '../api/index';
 
 export const getProducts = () => dispatch => {
   dispatch(getProductsPending())
   getProductsAPI()
-    .then(response => response.json())
-    .then(jsonResponse => dispatch(getProductsSuccess(jsonResponse)))
-    .catch(error => {
-      dispatch(getProductsRejected(error))
-    })
+    .then(response => dispatch(getProductsSuccess(response)))
+    // .catch(error => {
+    //   dispatch(getProductsRejected(error))
+    // })
 };
 
-export const getProductsSuccess = (jsonResponse) => ({
+export const getProductsSuccess = (products) => ({
   type: FETCH_GET_FULLFILLED,
-  payload: jsonResponse
+  payload: products
 })
 
 export const getProductsPending = () => ({

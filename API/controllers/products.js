@@ -10,11 +10,11 @@ module.exports = {
     getProductsFromDB()
       .then(products => {
         return resp
-          .status(200)
-          .json({
-            statusCode: 200,
-            products,
-          });
+        .status(200)
+        .json({
+          statusCode: 200,
+          products,
+        });
       })
       .catch(error => {
         return resp
@@ -33,16 +33,14 @@ module.exports = {
       return resp
         .status(200)
         .json({
-          code: 200,
           product,
         });
     }).catch(error => {
       return resp
-        .status(404)
-        .json({
-          code: 404,
-          error,
-        })
+      .status(404)
+      .json({
+        error,
+      })
     })
   },
   updateProducts: (req,resp) => {
